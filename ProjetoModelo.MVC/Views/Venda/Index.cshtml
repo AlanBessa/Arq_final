@@ -1,0 +1,54 @@
+﻿@model IEnumerable<ProjetoModelo.Application.ViewModels.ProdutoViewModel>
+
+@{
+    ViewBag.Title = "Escolha quais produtos comprar";
+}
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm("Venda", "Venda"))
+{
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Valor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Disponivel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fornecedor.Nome)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <input type="checkbox" name="produtos" value="@item.ProdutoId"/>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Disponivel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fornecedor.Nome)
+                </td>
+            </tr>
+        }
+
+    </table>
+    <input type="hidden" name="ClienteId" value="@Request.QueryString["cliente"]" />
+    <div>
+        <input type="submit" value="Comprar" class="btn btn-default"/>
+    </div>
+}

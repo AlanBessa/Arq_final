@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ProjetoModelo.Application.ViewModels.VendaViewModel>
+
+@{
+    ViewBag.Title = "Produtos Vendidos";
+}
+
+<h2>Produtos Vendidos</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Cliente")
+        </th>
+        <th>
+            @Html.DisplayName("Produto")
+        </th>
+        <th>
+            @Html.DisplayName("Fornecedor")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Valor)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cliente.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProdutosList.First().Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProdutosList.First().Fornecedor.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Valor)
+        </td>
+    </tr>
+}
+
+</table>

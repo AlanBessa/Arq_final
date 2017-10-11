@@ -1,0 +1,65 @@
+﻿@model IEnumerable<ProjetoModelo.Application.ViewModels.ClienteViewModel>
+
+@{
+    ViewBag.Title = "Clista de Clientes";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Adicionar Cliente", "Create")
+</p>
+
+@using (Html.BeginForm("Index", "Clientes", new {pesquisa = ""}, FormMethod.Get))
+{
+    <p>
+        Pesquisar por nome: @Html.Editor("pesquisa") <input type="submit" value="Pesquisar" class="btn btn-default" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sobrenome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </th>
+        <th></th>
+        <th>Realizar Compras</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sobrenome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ativo)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {id = item.ClienteId}) |
+                @Html.ActionLink("Details", "Details", new {id = item.ClienteId}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.ClienteId})
+            </td>
+            <td>
+                <a href="@Url.Action("Index", "Venda", new {cliente = item.ClienteId})">Selecionar</a>
+            </td>
+        </tr>
+    }
+</table>
+
+@Html.Partial("_Paginacao")
